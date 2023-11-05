@@ -7,7 +7,7 @@ import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
 import net.jqwik.api.Combinators;
 
-import java.util.Collection;
+import java.net.URI;
 
 import static java.lang.String.join;
 import static java.lang.System.lineSeparator;
@@ -36,10 +36,6 @@ public class TestData {
         return words().list().ofMinSize(2).ofMaxSize(3)
                 .map(n -> join(" ", n))
                 .map(Author::new);
-    }
-
-    public static Collection<Author> someAuthors() {
-        return authors().list().ofMinSize(2).ofMaxSize(4).sample();
     }
 
     public static BookInfo someBookinfo() {
@@ -71,6 +67,19 @@ public class TestData {
         return words().list().ofMinSize(4).ofMaxSize(25)
                 .map(w -> join(" ", w))
                 .map("%s."::formatted);
+    }
+
+    public static URI someUri() {
+        return uris().sample();
+    }
+
+    private static Arbitrary<URI> uris() {
+        return Combinators.combine(
+            words(),
+            words(),
+            words(),
+            words()
+        ).as("%s://%s.%s/%s"::formatted).map(URI::create);
     }
 
 }

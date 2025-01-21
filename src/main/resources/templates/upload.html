@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Kindle notes upload</title>
+</head>
+<body>
+<h2>Kindle notes upload</h2>
+<form method="POST" action="/" enctype="multipart/form-data">
+    <input type="file" name="file"/>
+    <p>
+        <input type="submit" value="Upload"/>
+</form>
+<div th:if="${result}">
+    <h3>Summary</h3>
+    <span th:utext="${result}">result</span>
+</div>
+<div th:if="${error}">
+    <p style="color: red;" th:text="${error}">error</p>
+</div>
+</body>
+</html>

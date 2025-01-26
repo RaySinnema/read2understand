@@ -7,7 +7,7 @@ Tool to summarize highlights from Kindle books.
 To start the tool:
 
 1. [Install Ollama](https://ollama.com/download).
-2. Run Ollama: `ollama run llama3.1`
+2. Run Ollama: `ollama run mistral-nemo`
 3. Run the tool: `./gradlew bootRun`
 4. Open your browser at <http://localhost:8080>.
 

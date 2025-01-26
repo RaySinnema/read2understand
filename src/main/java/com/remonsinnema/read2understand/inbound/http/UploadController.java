@@ -22,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Slf4j
 public class UploadController {
 
+  private static final String NOTEBOOK = "Notebook - ";
+
   private final Upload upload;
 
   @GetMapping
@@ -63,9 +65,16 @@ public class UploadController {
     if (!Files.exists(dir)) {
       Files.createDirectories(dir);
     }
-    var path = dir.resolve(file.getOriginalFilename());
+    var path = dir.resolve(removeNotebook(file.getOriginalFilename()));
     Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
     return upload.pdf(path.toFile());
+  }
+
+  private String removeNotebook(String value) {
+    if (value.startsWith(NOTEBOOK)) {
+      return value.substring(NOTEBOOK.length());
+    }
+    return value;
   }
 }
